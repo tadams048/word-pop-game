@@ -660,7 +660,7 @@
             cursor: pointer;
         }
         
-        @media (max-width: 768px) {
+       @media (max-width: 768px) {
             .game-container {
                 display: flex;
                 flex-direction: column;
@@ -673,8 +673,8 @@
             }
             
             .words-container {
-                order: -1; /* Move words container above game board */
                 margin-bottom: 15px;
+                order: 3; /* Move to the end */
             }
             
             .word-input {
@@ -682,6 +682,11 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                order: 1;
+            }
+            
+            .board-container {
+                order: 2;
             }
             
             .controls {
@@ -689,6 +694,7 @@
                 display: flex;
                 justify-content: space-between;
                 gap: 10px;
+                order: 2;
             }
             
             .controls button {
