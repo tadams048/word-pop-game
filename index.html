@@ -331,116 +331,32 @@
             }
         }
         
-       .controls {
-    display: flex;
-    gap: 10px;
-    margin-top: 15px;
-    width: 100%; /* Ensure full width */
-    padding: 0 10px; /* Add some padding */
-}
-
-button {
-    padding: 12px 15px; /* Slightly larger touch target */
-    border: none;
-    border-radius: 5px;
-    background-color: var(--secondary-color);
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    flex: 1; /* Equal width buttons */
-    min-height: 50px; /* Minimum height for touch targets */
-    font-size: 16px; /* Ensure readable text */
-    text-transform: uppercase; /* Optional: make buttons more distinct */
-}
-
-function submitWord() {
-    // Add logging for debugging
-    console.log('Submit Word called');
-    console.log('Game Active:', gameActive);
-    console.log('Selected Cells:', selectedCells);
-    console.log('Selected Cells Length:', selectedCells.length);
-    
-    // Ensure submit button is always visible
-    if (submitWordBtnEl) {
-        submitWordBtnEl.style.display = 'block';
-        submitWordBtnEl.style.visibility = 'visible';
-    }
-    
-    // Additional safety checks
-    if (!gameActive) {
-        console.warn('Game not active');
-        showToast('Game is not active');
-        return;
-    }
-    
-    if (selectedCells.length < MIN_WORD_LENGTH) {
-        console.warn('Word too short');
-        showToast(`Word must be at least ${MIN_WORD_LENGTH} letters`);
-        return;
-    }
-    
-    try {
-        let word = selectedCells.map(cell => cell.letter).join('').toLowerCase();
-        
-        // Replace 'qu' with 'q' for dictionary lookup
-        const lookupWord = word.replace(/qu/g, 'q');
-        
-        // Comprehensive logging
-        console.log('Submitted Word:', word);
-        console.log('Lookup Word:', lookupWord);
-        console.log('In Dictionary:', DICTIONARY.has(lookupWord));
-        console.log('Already Found:', foundWords.includes(word));
-        
-        // Check if word is valid and not already found
-        if (DICTIONARY.has(lookupWord) && !foundWords.includes(word)) {
-            // Calculate word score
-            const wordScore = calculateWordScore(word);
-            
-            // Add word to found words
-            foundWords.push(word);
-            score += wordScore;
-            
-            // Update UI
-            updateWordList(word, wordScore);
-            
-            if (scoreValueEl) {
-                scoreValueEl.textContent = score;
-            }
-            
-            if (wordCountEl) {
-                wordCountEl.textContent = foundWords.length;
-            }
-            
-            // Replace the used letters with new ones
-            replaceUsedLetters();
-            
-            // Show success message
-            showToast(`+${wordScore} points!`);
-        } else if (foundWords.includes(word)) {
-            showToast('Word already found!');
-        } else {
-            showToast('Not in dictionary!');
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
         }
         
-        // Always clear selection
-        clearSelection();
-    } catch (error) {
-        console.error('Error in submitWord:', error);
-        showToast('An error occurred');
-    }
-}
-
-/* Media query for extra mobile responsiveness */
-@media (max-width: 400px) {
-    .controls {
-        flex-direction: column;
-        gap: 10px;
-    }
-    
-    button {
-        width: 100%;
-        margin: 5px 0;
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: var(--secondary-color);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            flex: 1;
+        }
+        
+        button:hover {
+            background-color: var(--primary-color);
+        }
+        
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
         
         #submitWordBtn {
             background-color: var(--accent-color);
@@ -872,7 +788,7 @@ function submitWord() {
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Game configuration
-            const GAME_DURATION = 180; // 1 minute in seconds
+            const GAME_DURATION = 60; // 1 minute in seconds
             const GRID_SIZE = 4;
             const MIN_WORD_LENGTH = 3;
             
