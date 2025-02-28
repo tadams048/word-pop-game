@@ -661,9 +661,15 @@
         }
         
        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+                overflow-x: hidden;
+            }
+            
             .game-container {
                 display: flex;
                 flex-direction: column;
+                gap: 15px;
             }
             
             .board-container, .words-container {
@@ -672,51 +678,52 @@
                 flex: none;
             }
             
+            .game-board {
+                padding: 10px;
+                gap: 8px;
+            }
+            
+            .letter-cell {
+                font-size: 1.5rem;
+            }
+            
             .words-container {
-                margin-bottom: 15px;
-                order: 3; /* Move to the end */
+                margin-bottom: 10px;
             }
             
             .word-input {
-                min-height: 60px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                order: 1;
-            }
-            
-            .board-container {
-                order: 2;
-            }
-            
-            .controls {
-                margin-top: 15px;
-                display: flex;
-                justify-content: space-between;
-                gap: 10px;
-                order: 2;
-            }
-            
-            .controls button {
-                flex: 1;
-                padding: 12px 15px;
-                font-size: 1rem;
+                min-height: 50px;
+                padding: 10px;
+                font-size: 1.3rem;
             }
             
             .found-words {
-                max-height: 200px; /* Limit height on mobile */
+                max-height: 200px;
                 overflow-y: auto;
+                padding: 10px;
+            }
+            
+            .controls {
+                margin-top: 10px;
+                gap: 8px;
+            }
+            
+            .controls button {
+                padding: 10px;
+                font-size: 0.9rem;
             }
             
             .info-bar {
                 flex-direction: column;
-                gap: 10px;
+                gap: 8px;
                 text-align: center;
+                padding: 10px;
             }
             
             .upcoming-letters {
                 flex-wrap: wrap;
                 justify-content: center;
+                padding: 10px;
             }
             
             .upcoming-title {
@@ -724,7 +731,13 @@
                 text-align: center;
                 margin-bottom: 5px;
             }
+            
+            /* Ensure full visibility */
+            .game-container {
+                padding-bottom: 100px; /* Extra space at bottom */
+            }
         }
+        
     </style>
 </head>
 <body>
