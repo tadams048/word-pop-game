@@ -1652,7 +1652,7 @@ fetch('https://raw.githubusercontent.com/dwyl/english-words/master/words_diction
                     scoreEmoji = '🙂';
                 }
                 
-                const shareText = `${gameDate}\n${scoreEmoji} Score: ${score} | Words: ${foundWords.length}\nLongest Word: ${longestWordEl.textContent}\nPlay Word Pop: [your-website-url]`;
+                const shareText = `${gameDate}\n${scoreEmoji} Score: ${score} | Words: ${foundWords.length}\nLongest Word: ${longestWordEl.textContent}\nPlay Word Pop: https://tadams048.github.io/word-pop-game`;
                 
                 // Try to use the clipboard API
                 if (navigator.clipboard && navigator.clipboard.writeText) {
