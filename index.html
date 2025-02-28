@@ -662,7 +662,44 @@
         
         @media (max-width: 768px) {
             .game-container {
+                display: flex;
                 flex-direction: column;
+            }
+            
+            .board-container, .words-container {
+                width: 100%;
+                max-width: 100%;
+                flex: none;
+            }
+            
+            .words-container {
+                order: -1; /* Move words container above game board */
+                margin-bottom: 15px;
+            }
+            
+            .word-input {
+                min-height: 60px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .controls {
+                margin-top: 15px;
+                display: flex;
+                justify-content: space-between;
+                gap: 10px;
+            }
+            
+            .controls button {
+                flex: 1;
+                padding: 12px 15px;
+                font-size: 1rem;
+            }
+            
+            .found-words {
+                max-height: 200px; /* Limit height on mobile */
+                overflow-y: auto;
             }
             
             .info-bar {
