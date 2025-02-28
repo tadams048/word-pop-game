@@ -1502,59 +1502,73 @@
                 }
             }
             
-            function endGame() {
-                clearInterval(timerInterval);
-                gameActive = false;
-                
-                // Disable board interaction
-                const cells = document.querySelectorAll('.letter-cell');
-                cells.forEach(cell => {
-                    cell.style.cursor = 'default';
-                });
-                
-                // Calculate final stats
-                let longestWord = '';
-                let highestScoringWord = '';
-                let highestScore = 0;
-                
-                foundWords.forEach(word => {
-                    if (word.length > longestWord.length) {
-                        longestWord = word;
-                    }
-                    
-                    const wordScore = calculateWordScore(word);
-                    if (wordScore > highestScore) {
-                        highestScore = wordScore;
-                        highestScoringWord = word;
-                    }
-                });
-                
-                // Update game over modal
-                finalScoreEl.textContent = score;
-                finalWordsEl.textContent = foundWords.length;
-                longestWordEl.textContent = longestWord || '-';
-                
-                // Add score emoji based on score
-                const scoreEmoji = document.getElementById('scoreEmoji');
-                if (score >= 2000) {
-                    scoreEmoji.textContent = '👑'; // Crown for excellent
-                } else if (score >= 1000) {
-                    scoreEmoji.textContent = '🎉'; // Party for very good
-                } else if (score >= 500) {
-                    scoreEmoji.textContent = '😊'; // Smile for good
-                } else if (score >= 200) {
-                    scoreEmoji.textContent = '🙂'; // Slightly smile for okay
-                } else {
-                    scoreEmoji.textContent = '🤢'; // Sick for bad
-                }
-                
-                // Calculate time until next puzzle
-                updateNextPuzzleCountdown();
-                setInterval(updateNextPuzzleCountdown, 1000);
-                
-                // Show game over modal
-                gameOverModalEl.style.display = 'flex';
-            }
+           function endGame() {
+    clearInterval(timerInterval);
+    gameActive = false;
+    
+    // Disable board interaction
+    const cells = document.querySelectorAll('.letter-cell');
+    cells.forEach(cell => {
+        cell.style.cursor = 'default';
+    });
+    
+    // Calculate final stats
+    let longestWord = '';
+    let highestScoringWord = '';
+    let highestScore = 0;
+    
+    foundWords.forEach(word => {
+        if (word.length > longestWord.length) {
+            longestWord = word;
+        }
+        
+        const wordScore = calculateWordScore(word);
+        if (wordScore > highestScore) {
+            highestScore = wordScore;
+            highestScoringWord = word;
+        }
+    });
+    
+    // Update game over modal - add null checks
+    if (finalScoreEl) {
+        finalScoreEl.textContent = score || '0';
+    }
+    
+    if (finalWordsEl) {
+        finalWordsEl.textContent = foundWords.length || '0';
+    }
+    
+    if (longestWordEl) {
+        longestWordEl.textContent = longestWord || '-';
+    }
+    
+    // Add score emoji based on score
+    const scoreEmoji = document.getElementById('scoreEmoji');
+    if (scoreEmoji) {
+        if (score >= 2000) {
+            scoreEmoji.textContent = '👑'; // Crown for excellent
+        } else if (score >= 1000) {
+            scoreEmoji.textContent = '🎉'; // Party for very good
+        } else if (score >= 500) {
+            scoreEmoji.textContent = '😊'; // Smile for good
+        } else if (score >= 200) {
+            scoreEmoji.textContent = '🙂'; // Slightly smile for okay
+        } else {
+            scoreEmoji.textContent = '🤢'; // Sick for bad
+        }
+    }
+    
+    // Calculate time until next puzzle
+    updateNextPuzzleCountdown();
+    setInterval(updateNextPuzzleCountdown, 1000);
+    
+    // Show game over modal
+    if (gameOverModalEl) {
+        gameOverModalEl.style.display = 'flex';
+    } else {
+        console.error('Game over modal element not found');
+    }
+}
             
             function createCelebration() {
                 // Create celebration balloons
